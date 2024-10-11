@@ -104,13 +104,13 @@ export class PdfGenerator {
                 fontSize = 8;
                 break;
             case QR_SIZES[QRSize.M][0]:
-                fontSize = 10;
-                break;
-            case QR_SIZES[QRSize.L][0]:
                 fontSize = 12;
                 break;
+            case QR_SIZES[QRSize.L][0]:
+                fontSize = 16;
+                break;
             case QR_SIZES[QRSize.XL][0]:
-                fontSize = 14;
+                fontSize = 20;
                 break;
             default:
                 fontSize = 10;
