@@ -83,11 +83,15 @@ Marginesy, rozmiary czcionek i odstępy można dostosować w kodzie do własnych
 
 ### Uruchamianie kodu
 
-Aby uruchomić kod, upewnij się, że Twój plik TypeScript został skompilowany, lub użyj ts-node, jeśli chcesz bezpośrednio wykonać pliki TypeScript. Na przykład:
+Aby uruchomić kod, upewnij się, że Twój plik TypeScript został skompilowany, lub użyj ts-node ```npm install -g ts-node```, jeśli chcesz bezpośrednio wykonać pliki TypeScript. 
+Na przykład:
 
 ```npx ts-node your_file.ts```
 
-Wygenerowany plik PDF zostanie zapisany jako output_qr_codes.pdf w bieżącym katalogu.
+Przykładowy kod pozwalajacy przetestować:
+
+``` [tu bedzie przykladowy kod] ```
+
 
 ## Uwagi
 
