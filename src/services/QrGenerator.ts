@@ -21,10 +21,7 @@ export class QrGenerator {
                 // Ustalanie rozmiaru kodu QR na podstawie parametru 'size'
                 const qrSize = QR_SIZES[size] || QR_SIZES[QRSize.DEFAULT];
 
-                // Generowanie kodu QR
-                console.log(`Generowanie kodu QR dla: ${value}`);
                 const qrCodeDataUrl = await QRCode.toDataURL(value);
-                console.log(`Wygenerowano kod QR dla: ${value}`);
 
                 qrCodes.push({ value: qrCodeDataUrl, labels, size: qrSize });
             }
