@@ -1,10 +1,10 @@
-import { QRSize } from "../src/enum/qrSizes.enum";
+import { QRCodeSize } from "../src/domain/value-objects/QRCodeSizes";
 import { QrGenerator } from "../src/services";
 
 describe('QrGenerator', () => {
   it('should generate QR codes without errors', async () => {
     const items = [
-      { value: '12345', labels: [{ name: 'Numer próbki', value: '12345' }], size: QRSize.M }
+      { value: '12345', labels: [{ name: 'Numer próbki', value: '12345' }], size: QRCodeSize.MEDIUM }
     ];
 
     const qrGenerator = new QrGenerator(items);
@@ -16,7 +16,7 @@ describe('QrGenerator', () => {
 
   it('should generate correct QR code', async () => {
     const items = [
-      { value: '67890', labels: [{ name: 'Numer próbki', value: '67890' }], size: QRSize.S }
+      { value: '67890', labels: [{ name: 'Numer próbki', value: '67890' }], size: QRCodeSize.SMALL }
     ];
 
     const qrGenerator = new QrGenerator(items);

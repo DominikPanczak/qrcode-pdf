@@ -1,6 +1,6 @@
 import {QRCodeData} from "../interface/qrItem.interface";
 import PDFDocument from "pdfkit";
-import {QR_SIZES, QRSize} from "../enum/qrSizes.enum";
+import {QRCodeSize, QR_CODE_DIMENSIONS_WITH_DEFAULT as QR_CODE_DIMENSIONS} from "../domain/value-objects/QRCodeSizes";
 
 export class PdfGenerator {
     qrCodes: QRCodeData[];
@@ -46,7 +46,7 @@ export class PdfGenerator {
 
     addQrCodesToDocument(doc: PDFKit.PDFDocument) {
         // Sortowanie QR kodów według rozmiaru
-        const sortedQrCodes = this.qrCodes.sort((a, b) => a.size[0] - b.size[0]);
+        const sortedQrCodes = this.qrCodes.sort((a, b) => a.size.width - b.size.width);
 
         // Ustawienia układu strony
         const pageMargin = 20;
@@ -61,13 +61,13 @@ export class PdfGenerator {
             const { value, labels, size } = qrCode;
 
             // Sprawdzenie, czy zmieści się na bieżącej stronie, jeśli nie - dodaj nową stronę
-            if (x + size[0] > maxRowWidth) {
+            if (x + size.width > maxRowWidth) {
                 x = pageMargin;
                 y += maxRowHeight + qrSpacingY;
                 maxRowHeight = 0;
             }
 
-            if (y + size[1] + labels.length * 20 + 20 > doc.page.height) {
+            if (y + size.height + labels.length * 20 + 20 > doc.page.height) {
                 this.addNewPage(doc);
                 x = pageMargin;
                 y = pageMargin;
@@ -78,8 +78,8 @@ export class PdfGenerator {
             this.addQrCodeToDocument(doc, value, x, y, size);
 
             // Dodanie etykiet poniżej kodu QR
-            const labelY = y + size[1] + 5;
-            const updatedY = this.addLabelsToDocument(doc, labels, x, labelY, size[0]);
+            const labelY = y + size.height + 5;
+            const updatedY = this.addLabelsToDocument(doc, labels, x, labelY, size.width);
 
             // Aktualizacja maksymalnej wysokości wiersza
             const totalHeight = updatedY - y;
@@ -88,32 +88,32 @@ export class PdfGenerator {
             }
 
             // Aktualizacja współrzędnych do następnego kodu QR
-            x += size[0] + qrSpacingX;
+            x += size.width + qrSpacingX;
         }
     }
 
-    addQrCodeToDocument(doc: PDFKit.PDFDocument, dataUrl: string, x: number, y: number, size: [number, number]) {
-        doc.image(dataUrl, x, y, { width: size[0], height: size[1] });
+    addQrCodeToDocument(doc: PDFKit.PDFDocument, dataUrl: string, x: number, y: number, size: { width: number; height: number }) {
+        doc.image(dataUrl, x, y, { width: size.width, height: size.height });
     }
 
     addLabelsToDocument(doc: PDFKit.PDFDocument, labels: { name: string; value: string }[], x: number, y: number, width: number): number {
         // Dobór rozmiaru czcionki w zależności od rozmiaru QR
-        let fontSize =10;
+        let fontSize = 10;
         switch (width) {
-            case QR_SIZES[QRSize.S][0]:
+            case QR_CODE_DIMENSIONS[QRCodeSize.SMALL].width:
+                fontSize = 6;
+                break;
+            case QR_CODE_DIMENSIONS[QRCodeSize.MEDIUM].width:
                 fontSize = 8;
                 break;
-            case QR_SIZES[QRSize.M][0]:
+            case QR_CODE_DIMENSIONS[QRCodeSize.LARGE].width:
                 fontSize = 12;
                 break;
-            case QR_SIZES[QRSize.L][0]:
+            case QR_CODE_DIMENSIONS[QRCodeSize.EXTRA_LARGE].width:
                 fontSize = 16;
                 break;
-            case QR_SIZES[QRSize.XL][0]:
-                fontSize = 20;
-                break;
             default:
-                fontSize = 10;
+                fontSize = 8;
         }
 
         labels.forEach(label => {

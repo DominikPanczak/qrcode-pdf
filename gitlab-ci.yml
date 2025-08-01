@@ -1,0 +1,7 @@
+stages:
+  - promote
+  - build
+
+include:
+  - component: $CI_SERVER_FQDN/bcc/infra/pipeline-templates/tag-create-selected@~latest
+  - component: $CI_SERVER_FQDN/bcc/infra/ts-pipeline-templates/npm-library-push@~latest

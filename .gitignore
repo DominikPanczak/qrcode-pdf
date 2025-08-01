@@ -1,4 +1,16 @@
 node_modules/
-run/
+examples/
 .DS_Store
 *.log
+
+# Test output directories
+test/
+tmp/
+output_*.pdf
+preview.json
+*.pdf
+
+# Generated files
+examples/output_*.pdf
+examples/preview.json
+examples/*.pdf

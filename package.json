@@ -1,11 +1,25 @@
 {
-  "name": "qrcode",
-  "version": "1.0.0",
-  "description": "node_modules/  .DS_Store  nie *.log",
+  "name": "@pit-common/qrcode-pdf",
+  "version": "0.0.17",
+  "description": "Biblioteka umożliwia łatwe generowanie kodów QR oraz umieszczanie ich w pliku PDF, wraz z dowolną liczbą etykiet (labeli) wyświetlanych jedna pod drugą. Dzięki elastycznym opcjom formatowania, można dostosować zawartość pliku PDF do własnych potrzeb, co sprawia, że jest to idealne narzędzie do tworzenia profesjonalnych i uporządkowanych dokumentów z kodami QR oraz towarzyszącymi im opisami.",
   "main": "index.js",
-  "scripts": {
-    "test": "jest"
-  },
+      "scripts": {
+        "test": "jest",
+        "start": "ts-node examples/new-architecture-example.ts",
+        "start:old": "ts-node examples/qrrun.ts",
+        "preview": "ts-node examples/preview-example.ts",
+        "templates": "ts-node examples/template-example.ts",
+        "sizes": "ts-node examples/size-example.ts",
+        "test-all": "ts-node examples/test-all.ts",
+        "test:new": "jest tests/new-architecture.test.ts",
+        "test:old": "jest tests/QrGenerator.test.ts tests/PdfGenerator.test.ts",
+        "build": "tsc",
+        "clean": "ts-node -e \"require('./src/utils/TestFileManager').TestFileManager.cleanTestDirectory()\"",
+        "dev": "ts-node --watch examples/new-architecture-example.ts",
+        "dev:preview": "ts-node --watch examples/preview-example.ts",
+        "dev:templates": "ts-node --watch examples/template-example.ts",
+        "dev:sizes": "ts-node --watch examples/size-example.ts"
+    },
   "private": true,
   "devDependencies": {
     "@types/jest": "^29.5.13",

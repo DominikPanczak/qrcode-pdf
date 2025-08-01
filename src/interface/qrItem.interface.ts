@@ -1,13 +1,13 @@
-import {QRSize} from "../enum/qrSizes.enum";
+import { QRCodeSize } from "../domain/value-objects/QRCodeSizes";
 
 export interface QRItem {
     value: string;
     labels: {name: string, value:string}[];
-    size: QRSize;
+    size: QRCodeSize;
 }
 
 export interface QRCodeData {
     value: string;
     labels: {name: string, value:string}[];
-    size: [number, number];
+    size: { width: number; height: number };
 }
